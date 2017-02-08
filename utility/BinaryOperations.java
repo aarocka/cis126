@@ -39,28 +39,30 @@ public class BinaryOperations {
     }
 
     public static int convertToInteger(boolean[] binaryData) {
-        int output = 0;
-
-        for (int i = 0; i < binaryData.length; i++) {
-            if (binaryData[i]) output = output | (1 << i);
+        String binaryString = "";
+        for (Boolean b: binaryData) {
+            if (b==true)
+                binaryString ="1"+binaryString;
+            else
+                binaryString ="0"+binaryString;
         }
-        return output;
+
+        int decimalValue = Integer.parseInt(binaryString, 2);
+        return decimalValue;
     }
 
     public static String convertToString(int binaryData, int numberOfBits) {
-        String output = Integer.toBinaryString(binaryData);
-
-        output = output.substring(Math.max(0, output.length() - numberOfBits)); // trims if numberOfBits < string length
-        while (output.length() < numberOfBits) {
-            output = "0" + output;
-        }
-        return output;
+        return convertToString(convertToArray(binaryData, numberOfBits));
     }
 
     public static String convertToString(boolean[] binaryData) {
-        String output = "";
-
-        for (boolean bit : binaryData) output = (bit ? "1" : "0") + output;
-        return output;
+        String binaryString = "";
+        for (Boolean b: binaryData) {
+            if (b==true)
+                binaryString +="1";
+            else
+                binaryString +="0";
+        }
+        return binaryString;
     }
 }
