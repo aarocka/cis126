@@ -2,21 +2,25 @@ package utility;
 
 public class DFlipFlop  {
     private ReactiveLogicGate not  = new ReactiveLogicGate(ReactiveLogicGate.NOT);
-    private ReactiveLogicGate nor1 = new ReactiveLogicGate(ReactiveLogicGate.NOR);
-    private ReactiveLogicGate nor2 = new ReactiveLogicGate(ReactiveLogicGate.NOR);
     private ReactiveLogicGate and1 = new ReactiveLogicGate(ReactiveLogicGate.AND);
     private ReactiveLogicGate and2 = new ReactiveLogicGate(ReactiveLogicGate.AND);
+    private ReactiveLogicGate nor1 = new ReactiveLogicGate(ReactiveLogicGate.NOR);
+    private ReactiveLogicGate nor2 = new ReactiveLogicGate(ReactiveLogicGate.NOR);
 
     // ================ CONSTRUCTORS ================
     public DFlipFlop() {
         // putting together circuit
+
+        // Full D FlipFlop
         this.not.solderOutputToInput1Of(this.and1);
 
-        this.nor1.solderOutputToInput1Of(this.nor1);
-        this.nor2.solderOutputToInput2Of(this.nor1);
+        // SR FlipFlop
+        this.and1.solderOutputToInput1Of(this.nor1);
+        this.and2.solderOutputToInput2Of(this.nor2);
 
-        this.nor1.solderOutputToInput2Of(this.nor2);
-        this.and2.solderOutputToInput1Of(this.nor2);
+        // SR Latch
+        this.nor1.solderOutputToInput1Of(this.nor2);
+        this.nor2.solderOutputToInput2Of(this.nor1);
 
         // resetting the d-flipflop to ensure that the output initializes as false (LOW)
         this.setD(false); // reset value

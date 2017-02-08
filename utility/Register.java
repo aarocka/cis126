@@ -28,16 +28,19 @@ public class Register implements RegisterInterface {
         // initializes a register with the appropriate number of bits
         // method provided to avoid duplication of code in constructors
         this.memory = new DFlipFlop[numberOfBits];
+        for (int i = 0; i < numberOfBits; i++) this.memory[i] = new DFlipFlop();
     }
 
     // ================ END CONSTRUCTORS ================
 
     public void setDatalines(String binaryData) {
         // see public void setDatalines(boolean[] binaryData)
+        this.setDatalines(BinaryOperations.convertToArray(binaryData));
     }
 
     public void setDatalines(int binaryData) {
         // see public void setDatalines(boolean[] binaryData)
+        this.setDatalines(BinaryOperations.convertToArray(binaryData, this.size()));
     }
 
     public void setDatalines(boolean[] binaryData) {
@@ -48,19 +51,19 @@ public class Register implements RegisterInterface {
         // binaryData[0] is the least significant bit
         // binaryData[binaryData.length - 1] is the most significant bit
         for (int i = 0; i < Math.min(binaryData.length, this.size()); i++) {
-            if (binaryData[i]) this.setBit(i);
-            else this.clearBit(i);
+            this.memory[i].setD(binaryData[i]);
         }
+        this.clockIt();
     }
 
     public String getDatalinesString() {
         // see public boolean[] getDatalines()
-        return "";
+        return BinaryOperations.convertToString(this.getDatalines());
     }
 
     public int getDatalinesInteger() {
         // see public boolean[] getDatalines()
-        return 0;
+        return BinaryOperations.convertToInteger(this.getDatalines());
     }
 
     public boolean[] getDatalines() {

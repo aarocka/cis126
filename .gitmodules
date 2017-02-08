@@ -1,0 +1,3 @@
+[submodule "greentealatte"]
+	path = greentealatte
+	url = git@github.com:davidjcastner/greentealatte.git
