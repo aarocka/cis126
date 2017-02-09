@@ -21,3 +21,7 @@ jdk:
 script:
   - javac test/AllTests.java
   - java test.AllTests
+
+# turning off email notifications
+notifications:
+  email: false
